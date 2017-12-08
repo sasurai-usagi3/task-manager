@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171208063625) do
+ActiveRecord::Schema.define(version: 20171208072831) do
+
+  create_table "project_user_relations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "project_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "authority", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_user_relations_on_project_id"
+    t.index ["user_id"], name: "index_project_user_relations_on_user_id"
+  end
+
+  create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.bigint "creator_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_projects_on_creator_id"
+  end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email", null: false
@@ -21,4 +40,7 @@ ActiveRecord::Schema.define(version: 20171208063625) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "project_user_relations", "projects"
+  add_foreign_key "project_user_relations", "users"
+  add_foreign_key "projects", "users", column: "creator_id"
 end
