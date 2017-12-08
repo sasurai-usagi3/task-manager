@@ -5,6 +5,7 @@ RSpec.describe User, type: :model do
     it { should have_many(:launched_projects).class_name('Project').with_foreign_key('creator_id').dependent(:destroy) }
     it { should have_many(:projects).through(:project_user_relations) }
     it { should have_many(:project_user_relations).dependent(:destroy) }
+    it { should have_many(:tasks).dependent(:destroy) }
   end
 
   describe 'Validation' do

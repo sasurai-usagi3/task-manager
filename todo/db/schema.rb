@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171208072831) do
+ActiveRecord::Schema.define(version: 20171208082518) do
 
   create_table "project_user_relations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "project_id", null: false
@@ -23,12 +23,25 @@ ActiveRecord::Schema.define(version: 20171208072831) do
   end
 
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "creator_id", null: false
     t.string "name", null: false
     t.string "description"
-    t.bigint "creator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_projects_on_creator_id"
+  end
+
+  create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "project_id", null: false
+    t.bigint "user_id", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.integer "priority", default: 0, null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_tasks_on_project_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -43,4 +56,6 @@ ActiveRecord::Schema.define(version: 20171208072831) do
   add_foreign_key "project_user_relations", "projects"
   add_foreign_key "project_user_relations", "users"
   add_foreign_key "projects", "users", column: "creator_id"
+  add_foreign_key "tasks", "projects"
+  add_foreign_key "tasks", "users"
 end
