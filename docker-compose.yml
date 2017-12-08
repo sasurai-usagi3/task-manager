@@ -1,0 +1,13 @@
+version: '2'
+services:
+  todo:
+    container_name: todo
+    build:
+      context: .
+      args:
+        - MODE=${MODE}
+        - APP_NAME=todo
+    ports:
+      - "${PORT}:80"
+    volumes:
+      - "${APP_PATH}:/var/www/html/todo"

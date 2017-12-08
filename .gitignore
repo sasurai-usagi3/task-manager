@@ -1,0 +1,11 @@
+/todo/.bundle
+
+/todo/log/*
+/todo/tmp/*
+!/todo/log/.keep
+!/todo/tmp/.keep
+
+/todo/node_modules
+/todo/yarn-error.log
+
+/todo/.byebug_history
