@@ -1,5 +1,6 @@
 class Project < ApplicationRecord
   belongs_to :creator, class_name: 'User'
+  has_many :tasks, dependent: :destroy
   has_many :users, through: :project_user_relations
   has_many :project_user_relations, dependent: :destroy
 
