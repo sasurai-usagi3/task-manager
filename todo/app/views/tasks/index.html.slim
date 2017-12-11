@@ -1,10 +1,19 @@
+= search_form_for [@project, @q_tasks] do |f|
+  = f.text_field :title_cont
+  = f.select :status_eq, Task.statuses, {include_blank: 'ステータスで絞り込み'}
+  = f.submit
 table
   thead
     tr
       th
-        | 項目
+        = sort_link @q_tasks, :title do
+          | 項目
       th
-        | 優先順位
+        = sort_link @q_tasks, :status do
+          | ステータス
+      th
+        = sort_link @q_tasks, :priority do
+          | 優先順位
       th
         | 作成者
   tbody
@@ -13,7 +22,10 @@ table
         td
           = link_to task.title, task
         td
+          = task.status
+        td
           = task.priority
         td
           = task.user.nickname
+= paginate @tasks
 = link_to '作成', new_project_task_path(project_id: @project.id)
