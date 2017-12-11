@@ -5,7 +5,8 @@ class TasksController < ApplicationController
   def index
     authorize @project, :show?
 
-    @tasks = @project.tasks.page(params[:page]).per(10)
+    @q_tasks = @project.tasks.ransack(params[:q])
+    @tasks = @q_tasks.result(distinct: true).order(priority: :desc).page(params[:page]).per(10)
   end
 
   def show
