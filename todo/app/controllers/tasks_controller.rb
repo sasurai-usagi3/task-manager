@@ -55,7 +55,7 @@ private
   end
 
   def find_task
-    @task = Task.find_by(id: params[:id]) || @project.tasks.new(task_params.merge(user: current_user, status: 'not_start'))
+    @task = Task.find_by(id: params[:id]) || @project.tasks.new(task_params.merge(group: @project.group, user: current_user, status: 'not_start'))
   end
 
   def task_params

@@ -1,30 +1,32 @@
 class TaskPolicy < ApplicationPolicy
+  include ProjectSystem
+
   def initialize(user, task)
     @user = user
     @project = task.project
   end
 
   def show?
-    member?
+    project_member?
   end
 
   def new?
-    member?
+    project_member?
   end
 
   def create?
-    member?
+    project_member?
   end
 
   def edit?
-    member?
+    project_member?
   end
 
   def update?
-    member?
+    project_member?
   end
 
   def destroy?
-    member?
+    project_member?
   end
 end
