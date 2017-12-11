@@ -1,13 +1,8 @@
 class ProjectsController < ApplicationController
   before_action :find_project, except: :index
   def index
-    @projects = Project.page(params[:page]).per(10)
-  end
-
-  def show
-    authorize @project
-
-    render status: :not_found if @project.nil?
+    @q_projects = current_user.joined_projects.ransack(params[:q])
+    @projects = @q_projects.result(distinct: true).order(id: :desc).page(params[:page]).per(10)
   end
 
   def new
