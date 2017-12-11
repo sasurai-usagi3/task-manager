@@ -1,26 +1,28 @@
 class ProjectUserRelationPolicy < ApplicationPolicy
+  include ProjectSystem
+
   def initialize(user, project_user_relation)
     @user = user
     @project = project_user_relation.project
   end
 
   def new?
-    administrator?
+    project_administrator?
   end
 
   def create?
-    administrator?
+    project_administrator?
   end
 
   def edit?
-    administrator?
+    project_administrator?
   end
 
   def update?
-    administrator?
+    project_administrator?
   end
 
   def destroy?
-    administrator?
+    project_administrator?
   end
 end

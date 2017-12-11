@@ -1,22 +1,34 @@
 class ProjectPolicy < ApplicationPolicy
+  include GroupSystem
+  include ProjectSystem
+
   def initialize(user, project)
     @user = user
     @project = project
+    @group = project.group
   end
 
   def show?
-    member?
+    project_member?
+  end
+
+  def new?
+    group_administrator?
+  end
+
+  def create?
+    group_administrator?
   end
 
   def edit?
-    administrator?
+    project_administrator?
   end
 
   def update?
-    administrator?
+    project_administrator?
   end
 
   def destroy?
-    administrator?
+    project_administrator?
   end
 end

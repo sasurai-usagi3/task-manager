@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :task do
+    group { create(:group) }
     project { create(:project) }
     user { create(:user) }
     sequence(:title) { |n| "タスク#{n}" }

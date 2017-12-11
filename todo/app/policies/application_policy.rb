@@ -50,13 +50,4 @@ class ApplicationPolicy
       scope
     end
   end
-
-private
-  def administrator?
-    @project.project_user_relations.exists?(user_id: @user, authority: 'administrator')
-  end
-
-  def member?
-    @project.project_user_relations.exists?(user_id: @user)
-  end
 end

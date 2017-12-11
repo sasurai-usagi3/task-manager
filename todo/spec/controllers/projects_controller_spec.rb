@@ -3,28 +3,32 @@ require 'rails_helper'
 RSpec.describe ProjectsController, type: :controller do
   subject { response }
 
-  before { sign_in user }
+  before do
+    sign_in user
+    GroupUserRelation.create!(user: user, group: group, authority: 'owner')
+  end
 
+  let(:group) { project.group }
   let(:project) { create(:project) }
   let(:user) { create(:user) }
 
   describe '#index' do
-    before { get :index }
+    before { get :index, params: {group_id: group.id} }
 
     it { is_expected.to have_http_status 200 }
   end
 
   describe '#new' do
-    before { get :new }
+    before { get :new, params: {group_id: group.id} }
 
     it { is_expected.to have_http_status 200 }
   end
 
   describe '#create' do
     describe 'Redirect and so on' do
-      before { post :create, params: {project: project.attributes} }
+      before { post :create, params: {group_id: group.id, project: project.attributes} }
 
-      it { is_expected.to redirect_to projects_path }
+      it { is_expected.to redirect_to [group, :projects] }
 
       it '作成者が管理者になっていること' do
         project_user_relation = ProjectUserRelation.last
@@ -37,8 +41,8 @@ RSpec.describe ProjectsController, type: :controller do
     describe 'Create a record' do
       let(:project) { build(:project) }
 
-      it { expect { post :create, params: {project: project.attributes} }.to change(Project, :count).by(1) }
-      it { expect { post :create, params: {project: project.attributes} }.to change(ProjectUserRelation, :count).by(1) }
+      it { expect { post :create, params: {group_id: group.id, project: project.attributes} }.to change(Project, :count).by(1) }
+      it { expect { post :create, params: {group_id: group.id, project: project.attributes} }.to change(ProjectUserRelation, :count).by(1) }
     end
   end
 
@@ -55,7 +59,7 @@ RSpec.describe ProjectsController, type: :controller do
     before { patch :update, params: {id: project.id, project: project2.attributes} }
 
     let(:project2) { create(:project) }
-    let(:remove_meta) { lambda { |data| data.tap { |attrs| attrs.delete('id') }.tap { |attrs| attrs.delete('created_at') }.tap { |attrs| attrs.delete('updated_at') }.tap { |attrs| attrs.delete('creator_id') } } }
+    let(:remove_meta) { lambda { |data| data.tap { |attrs| attrs.delete('id') }.tap { |attrs| attrs.delete('created_at') }.tap { |attrs| attrs.delete('updated_at') }.tap { |attrs| attrs.delete('creator_id') }.tap { |attrs| attrs.delete('group_id') } } }
 
     it { is_expected.to redirect_to project }
     it { expect(remove_meta.call(Project.find(project.id).attributes)).to eq remove_meta.call(project2.attributes) }
@@ -67,7 +71,7 @@ RSpec.describe ProjectsController, type: :controller do
     describe 'Redirect and destroy the record' do
       before { delete :destroy, params: {id: project.id} }
 
-      it { is_expected.to redirect_to projects_path }
+      it { is_expected.to redirect_to [group, :projects] }
       it { expect(Project.find_by(id: project.id)).to be_nil }
     end
 

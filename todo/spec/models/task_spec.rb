@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   describe 'Association' do
+    it { should belong_to(:group) }
     it { should belong_to(:project) }
     it { should belong_to(:user) }
   end
