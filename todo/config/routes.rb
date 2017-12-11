@@ -3,5 +3,6 @@ Rails.application.routes.draw do
 
   resources :projects do
     resources :tasks, shallow: true
+    resources :project_user_relations, path: :users, except: :show, shallow: true
   end
 end

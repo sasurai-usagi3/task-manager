@@ -1,0 +1,5 @@
+= form_with model: [project, project_user_relation] do |f|
+  - if project_user_relation.new_record?
+    = f.collection_select :user_id, User.all, :id, :nickname
+  = f.select :authority, ProjectUserRelation.authorities.map { |k, v| [k, k] }
+  = f.submit
