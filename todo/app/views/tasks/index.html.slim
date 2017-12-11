@@ -1,3 +1,4 @@
+- breadcrumb :project_tasks_path, @project
 = search_form_for [@project, @q_tasks] do |f|
   = f.text_field :title_cont
   = f.select :status_eq, Task.statuses, {include_blank: 'ステータスで絞り込み'}
