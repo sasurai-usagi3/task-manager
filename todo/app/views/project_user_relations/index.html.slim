@@ -1,0 +1,16 @@
+table
+  thead
+    tr
+      th
+        | 名前
+      th
+        | 権限
+  tbody
+    - @project_user_relations.each do |project_user_relation|
+      - user = project_user_relation.user
+      tr
+        td
+          = link_to user.nickname, [:edit, project_user_relation]
+        td
+          = project_user_relation.authority
+= link_to 'new', new_project_project_user_relation_path(project_id: @project.id)
