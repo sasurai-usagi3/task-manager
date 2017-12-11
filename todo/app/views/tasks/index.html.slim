@@ -1,0 +1,19 @@
+table
+  thead
+    tr
+      th
+        | 項目
+      th
+        | 優先順位
+      th
+        | 作成者
+  tbody
+    - @tasks.each do |task|
+      tr
+        td
+          = link_to task.title, task
+        td
+          = task.priority
+        td
+          = task.user.nickname
+= link_to '作成', new_project_task_path(project_id: @project.id)
