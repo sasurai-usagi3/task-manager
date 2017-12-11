@@ -1,6 +1,13 @@
 - breadcrumb :projects_path
+= search_form_for @q_projects do |f|
+  = f.text_field :name_cont
+  = f.submit
 ul
   - @projects.each do |project|
     li
-      = link_to project.name, project
+      = link_to project.name, [project, :tasks]
       = simple_format project.description
+      - if policy(project).edit?
+        = link_to '編集', [:edit, project]
+= paginate @projects
+= link_to '作成', new_project_path

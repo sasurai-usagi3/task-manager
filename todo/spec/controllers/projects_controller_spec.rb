@@ -14,14 +14,6 @@ RSpec.describe ProjectsController, type: :controller do
     it { is_expected.to have_http_status 200 }
   end
 
-  describe '#show' do
-    before { project.project_user_relations.create!(user: user, authority: 'administrator') }
-    before { get :show, params: {id: project.id} }
-
-    it { is_expected.to have_http_status 200 }
-    it { expect(assigns(:project).id).to eq project.id }
-  end
-
   describe '#new' do
     before { get :new }
 
