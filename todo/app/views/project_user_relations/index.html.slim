@@ -1,4 +1,6 @@
 - breadcrumb :project_project_user_relations_path, @project
+h2
+  | プロジェクト「#{@project.name}」メンバー一覧
 = link_to 'プロジェクトメンバ一覧', [@project, :project_user_relations]
 table
   thead

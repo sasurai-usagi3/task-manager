@@ -1,4 +1,13 @@
 = form_with model: model do |f|
-  = f.text_field :name, required: true
-  = f.text_area :description
-  = f.submit
+  dl.form-list
+    dt.form-list__label
+      = f.label :name
+    dd.form-list__input-wrapper
+      = f.text_field :name, required: true, class: 'oneline-input'
+  dl.form-list
+    dt.form-list__label
+      = f.label :description
+    dd.form-list__input-wrapper
+      = f.text_area :description, class: 'multiline-input'
+  button.submit-btn
+    | 登録

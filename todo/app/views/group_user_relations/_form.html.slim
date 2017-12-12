@@ -1,4 +1,13 @@
 = form_with model: model do |f|
-  = f.collection_select :user_id, User.all, :id, :nickname
-  = f.select :authority, GroupUserRelation.authorities.map { |k, v| k != 'owner' ? [k, k] : nil }.compact
-  = f.submit
+  dl.form-list
+    dt.form-list__label
+      = f.label :user_id, 'User'
+    dd.form-list__input-wrapper
+      = f.collection_select :user_id, User.all, :id, :nickname, {include_blank: 'ユーザ'}, class: 'oneline-input'
+  dl.form-list
+    dt.form-list__label
+      = f.label :authority
+    dd.form-list__input-wrapper
+      = f.select :authority, GroupUserRelation.authorities.map { |k, v| k != 'owner' ? [k, k] : nil }.compact, {include_blank: '権限'}, class: 'oneline-input'
+  button.submit-btn
+    | 登録

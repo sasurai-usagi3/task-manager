@@ -1,7 +1,11 @@
+h2
+  | 所属するグループ
 - if user_signed_in?
-  ul
+  ul.group-list
     - @groups.each do |group|
-      li
-        = link_to group.name, [group, :projects]
+      li.group-list__item
+        h3.group-list__title
+          = link_to group.name, [group, :projects]
+        = simple_format group.description
 - else
   | ログインしない
