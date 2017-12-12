@@ -3,23 +3,24 @@ class GroupUserRelationPolicy < ApplicationPolicy
 
   def initialize(user, group_user_relation)
     @user = user
+    @group_user_relation = group_user_relation
     @group = group_user_relation.group
   end
 
   def new?
-    group_administrator?
+    group_owner? || (group_administrator? && !@group_user_relation.owner?)
   end
 
   def create?
-    group_administrator?
+    group_owner? || (group_administrator? && !@group_user_relation.owner?)
   end
 
   def edit?
-    group_administrator?
+    group_owner? || (group_administrator? && !@group_user_relation.owner?)
   end
 
   def update?
-    group_administrator?
+    group_owner? || (group_administrator? && !@group_user_relation.owner?)
   end
 
   def destroy?

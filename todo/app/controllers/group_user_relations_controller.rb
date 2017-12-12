@@ -27,9 +27,11 @@ class GroupUserRelationsController < ApplicationController
   end
 
   def update
+    @group_user_relation.assign_attributes(group_user_relation_params)
+
     authorize @group_user_relation
 
-    if @group_user_relation.update(group_user_relation_params)
+    if @group_user_relation.save
       redirect_to [@group_user_relation.group, :group_user_relations]
     else
       render 'edit'

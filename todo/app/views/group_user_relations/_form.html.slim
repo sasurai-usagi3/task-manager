@@ -1,4 +1,4 @@
 = form_with model: model do |f|
   = f.collection_select :user_id, User.all, :id, :nickname
-  = f.select :authority, GroupUserRelation.authorities.map { |k, v| [k, k] }
+  = f.select :authority, GroupUserRelation.authorities.map { |k, v| k != 'owner' ? [k, k] : nil }.compact
   = f.submit
