@@ -1,0 +1,21 @@
+h2
+  | Log in
+= form_with model: resource, url: session_path(resource_name) do |f|
+  dl.form-list
+    dt.form-list__label
+      = f.label :email
+    dd.form-list__input-wrapper
+      = f.email_field :email, autofocus: true, placeholder: 'test@example.com', class: 'oneline-input'
+  dl.form-list
+    dt.form-list__label
+      = f.label :password, class: 'oneline-input'
+    dd.form-list__input-wrapper
+      = f.password_field :password, placeholder: 'パスワード', class: 'oneline-input'
+  - if devise_mapping.rememberable?
+    .field
+      = f.check_box :remember_me
+      = f.label :remember_me
+  div
+    button.submit-btn
+      | ログイン
+= render 'users/shared/links'

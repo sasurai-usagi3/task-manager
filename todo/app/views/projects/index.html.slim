@@ -1,16 +1,36 @@
 - breadcrumb :group_projects_path, @group
+h2
+  | グループ「#{@group.name}」プロジェクト一覧
 = link_to 'グループメンバ一覧', [@group, :group_user_relations]
-= search_form_for [@group, @q_projects] do |f|
-  = f.text_field :name_cont
-  = f.submit
-ul
-  - @projects.each do |project|
-    li
-      = link_to project.name, [project, :tasks]
-      = simple_format project.description
-      - if policy(project).edit?
-        = link_to '編集', [:edit, project]
-      - if policy(project).destroy?
-        = link_to '削除', project, method: :delete
+div
+  h3
+    | 絞り込み
+  = search_form_for [@group, @q_projects] do |f|
+    div style="margin-bottom: 1rem"
+      = f.text_field :name_cont, placeholder: 'タイトル絞り込み', class: 'oneline-input'
+    button.submit-btn
+      | 絞り込み
+table
+  thead
+    tr
+      th
+        | プロジェクト名
+      th
+        | 説明
+      th
+      th
+  tbody
+    - @projects.each do |project|
+      tr
+        td
+          = link_to project.name, [project, :tasks]
+        td
+          = simple_format project.description
+        td
+          - if policy(project).edit?
+            = link_to '編集', [:edit, project]
+        td
+          - if policy(project).destroy?
+            = link_to '削除', project, method: :delete
 = paginate @projects
 = link_to '作成', new_group_project_path
