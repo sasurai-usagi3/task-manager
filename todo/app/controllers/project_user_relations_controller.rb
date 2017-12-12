@@ -18,7 +18,7 @@ class ProjectUserRelationsController < ApplicationController
     if @project_user_relation.save
       redirect_to [@project, :project_user_relations]
     else
-      render 'new'
+      render 'new', status: :bad_request
     end
   end
 
@@ -32,7 +32,7 @@ class ProjectUserRelationsController < ApplicationController
     if @project_user_relation.update(project_user_relation_params)
       redirect_to [@project_user_relation.project, :project_user_relations]
     else
-      render 'edit'
+      render 'edit', status: :bad_request
     end
   end
 

@@ -9,7 +9,7 @@ class GroupsController < ApplicationController
       @group.group_user_relations.create!(user: current_user, authority: 'owner')
       redirect_to [@group, :projects]
     else
-      render 'new'
+      render 'new', status: :bad_request
     end
   end
 
@@ -23,7 +23,7 @@ class GroupsController < ApplicationController
     if @group.update(group_params)
       redirect_to [@group, :projects]
     else
-      render 'edit'
+      render 'edit', status: :bad_request
     end
   end
 

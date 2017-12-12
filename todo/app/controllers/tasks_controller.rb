@@ -23,7 +23,7 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to [@project, :tasks]
     else
-      render 'new'
+      render 'new', status: :bad_request
     end
   end
 
@@ -37,7 +37,7 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to @task
     else
-      render 'edit'
+      render 'edit', status: :bad_request
     end
   end
 
