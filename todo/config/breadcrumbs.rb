@@ -17,6 +17,22 @@ crumb :group_projects_path do |group|
   parent :root
 end
 
+crumb :group_group_user_relations_path do |group|
+  link "グループ「#{group.name}」メンバ一覧", [group, :group_user_relations]
+  parent :group_projects_path, group
+end
+
+crumb :new_group_group_user_relation_path do |group|
+  link "グループ「#{group.name}」メンバ追加", [group, :group_user_relations]
+  parent :group_projects_path, group
+end
+
+crumb :edit_group_group_user_relation_path do |group_user_relation|
+  group = group_user_relation.group
+  link "グループ「#{group.name}」メンバ追加", [group, :group_user_relations]
+  parent :group_projects_path, group
+end
+
 crumb :new_group_project_path do |group|
   link "グループ「#{group.name}」プロジェクト新規作成", [:new, group, :project]
   parent :group_projects_path, group
