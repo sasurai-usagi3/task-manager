@@ -3,7 +3,9 @@ class ProjectsController < ApplicationController
   before_action :find_project, except: :index
 
   def index
-    @q_projects = current_user.joined_projects.ransack(params[:q])
+    authorize @group, :show?
+
+    @q_projects = @group.projects.ransack(params[:q])
     @projects = @q_projects.result(distinct: true).order(id: :desc).page(params[:page]).per(10)
   end
 

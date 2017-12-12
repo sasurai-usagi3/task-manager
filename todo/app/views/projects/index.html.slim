@@ -1,5 +1,5 @@
-- breadcrumb :projects_path
-= search_form_for @q_projects do |f|
+- breadcrumb :group_projects_path, @group
+= search_form_for [@group, @q_projects] do |f|
   = f.text_field :name_cont
   = f.submit
 ul
@@ -10,4 +10,4 @@ ul
       - if policy(project).edit?
         = link_to '編集', [:edit, project]
 = paginate @projects
-= link_to '作成', new_project_path
+= link_to '作成', new_group_project_path
