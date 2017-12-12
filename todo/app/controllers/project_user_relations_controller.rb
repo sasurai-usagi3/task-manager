@@ -27,6 +27,8 @@ class ProjectUserRelationsController < ApplicationController
   end
 
   def update
+    @project_user_relation.assign_attributes(project_user_relation_params)
+
     authorize @project_user_relation
 
     if @project_user_relation.update(project_user_relation_params)
