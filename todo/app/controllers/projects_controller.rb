@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   def index
     authorize @group, :show?
 
-    @q_projects = @group.projects.ransack(params[:q])
+    @q_projects = current_user.joined_projects.where(group: @group).ransack(params[:q])
     @projects = @q_projects.result(distinct: true).order(id: :desc).page(params[:page]).per(10)
   end
 

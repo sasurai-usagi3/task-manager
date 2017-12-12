@@ -1,3 +1,5 @@
+- breadcrumb :project_project_user_relations_path, @project
+= link_to 'プロジェクトメンバ一覧', [@project, :project_user_relations]
 table
   thead
     tr
@@ -5,12 +7,20 @@ table
         | 名前
       th
         | 権限
+      th
   tbody
     - @project_user_relations.each do |project_user_relation|
       - user = project_user_relation.user
       tr
         td
-          = link_to user.nickname, [:edit, project_user_relation]
+          - if policy(project_user_relation).edit?
+            = link_to user.nickname, [:edit, project_user_relation]
+          - else
+            = user.nickname
         td
           = project_user_relation.authority
-= link_to 'new', new_project_project_user_relation_path(project_id: @project.id)
+        td
+          - if policy(project_user_relation).destroy?
+            = link_to '削除', project_user_relation, method: :delete
+- if policy(@project.project_user_relations.new).new?
+  = link_to 'new', new_project_project_user_relation_path(project_id: @project.id)

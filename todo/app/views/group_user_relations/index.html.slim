@@ -6,12 +6,20 @@ table
         | 名前
       th
         | 権限
+      th
   tbody
     - @group_user_relations.each do |group_user_relation|
       - user = group_user_relation.user
       tr
         td
-          = link_to user.nickname, [:edit, group_user_relation]
+          - if policy(group_user_relation).edit?
+            = link_to user.nickname, [:edit, group_user_relation]
+          - else
+            = user.nickname
         td
           = group_user_relation.authority
-= link_to 'new', [:new, @group, :group_user_relation]
+        td
+          - if policy(group_user_relation).destroy?
+            = link_to '削除', group_user_relation, method: :delete
+- if policy(@group.group_user_relations.new).new?
+  = link_to 'new', [:new, @group, :group_user_relation]

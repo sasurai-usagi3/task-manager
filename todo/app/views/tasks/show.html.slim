@@ -14,3 +14,23 @@ dl
     | 作成者
   dd
     = @task.user.nickname
+dl
+  dt
+    | ステータス
+  dd
+    = @task.status
+- if !@task.done?
+  dl
+    dt
+      | ステータス変更
+    dd
+      = form_with model: @task do |f|
+        ruby:
+          next_status, status_text = if @task.not_start?
+                                       [:in_progress, 'in_progressにする']
+                                     elsif @task.in_progress?
+                                       [:done, 'doneにする']
+                                     elsif @task.done?
+                                     end
+        = f.hidden_field :status, value: next_status
+        = f.submit status_text
