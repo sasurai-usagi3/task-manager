@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, module: :users
 
   resources :groups, except: [:index, :show] do
     resources :projects, except: :show, shallow: true do
@@ -8,4 +8,6 @@ Rails.application.routes.draw do
     end
     resources :group_user_relations, path: :group_members, except: :show, shallow: true
   end
+
+  root 'home#index'
 end
