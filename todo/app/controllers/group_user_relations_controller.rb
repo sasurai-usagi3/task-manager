@@ -18,7 +18,7 @@ class GroupUserRelationsController < ApplicationController
     if @group_user_relation.save
       redirect_to [@group, :group_user_relations]
     else
-      render 'new'
+      render 'new', status: :bad_request
     end
   end
 
@@ -34,7 +34,7 @@ class GroupUserRelationsController < ApplicationController
     if @group_user_relation.save
       redirect_to [@group_user_relation.group, :group_user_relations]
     else
-      render 'edit'
+      render 'edit', status: :bad_request
     end
   end
 

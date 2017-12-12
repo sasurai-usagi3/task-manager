@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
       @project.project_user_relations.create!(user: current_user, authority: 'administrator')
       redirect_to [@group, :projects]
     else
-      render 'new'
+      render 'new', status: :bad_request
     end
   end
 
@@ -34,7 +34,7 @@ class ProjectsController < ApplicationController
     if @project.update(project_params)
       redirect_to @project
     else
-      render 'edit'
+      render 'edit', status: :bad_request
     end
   end
 
