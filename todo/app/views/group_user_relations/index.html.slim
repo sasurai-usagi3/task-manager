@@ -1,0 +1,17 @@
+- breadcrumb :group_group_user_relations_path, @group
+table
+  thead
+    tr
+      th
+        | 名前
+      th
+        | 権限
+  tbody
+    - @group_user_relations.each do |group_user_relation|
+      - user = group_user_relation.user
+      tr
+        td
+          = link_to user.nickname, [:edit, group_user_relation]
+        td
+          = group_user_relation.authority
+= link_to 'new', [:new, @group, :group_user_relation]
