@@ -1,4 +1,5 @@
 - breadcrumb :project_tasks_path, @project
+= link_to 'プロジェクトメンバ一覧', [@project, :project_user_relations]
 = search_form_for [@project, @q_tasks] do |f|
   = f.text_field :title_cont
   = f.select :status_eq, Task.statuses, {include_blank: 'ステータスで絞り込み'}
@@ -17,6 +18,8 @@ table
           | 優先順位
       th
         | 作成者
+      th
+      rh
   tbody
     - @tasks.each do |task|
       tr
@@ -28,5 +31,9 @@ table
           = task.priority
         td
           = task.user.nickname
+        td
+          = link_to '編集', [:edit, task]
+        td
+          = link_to '削除', task, method: :delete
 = paginate @tasks
 = link_to '作成', new_project_task_path(project_id: @project.id)

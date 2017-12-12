@@ -48,6 +48,22 @@ crumb :project_tasks_path do |project|
   parent :group_projects_path, project.group
 end
 
+crumb :project_project_user_relations_path do |project|
+  link "プロジェクト「#{project.name}」メンバ一覧", [project, :project_user_relations]
+  parent :project_tasks_path, project
+end
+
+crumb :new_project_project_user_relation_path do |project|
+  link "プロジェクト「#{project.name}」メンバ追加", [project, :project_user_relations]
+  parent :project_project_user_relations_path, project
+end
+
+crumb :edit_project_project_user_relation_path do |project_user_relation|
+  project = project_user_relation.project
+  link "プロジェクト「#{project.name}」メンバ編集", [project, :project_user_relations]
+  parent :project_project_user_relations_path, project
+end
+
 crumb :task_path do |task|
   link "タスク「#{task.title}」", task
   parent :project_tasks_path, task.project

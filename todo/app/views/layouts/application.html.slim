@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title
+      | Scrum Log
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    header
+      - if user_signed_in?
+        = "#{current_user.nickname} としてログイン"
+        = link_to '編集', edit_user_registration_path
+        = link_to 'サインアウト', destroy_user_session_path, method: :delete
+      - else
+        = link_to 'サインイン', new_user_session_path
+        = link_to 'サインアップ', new_user_registration_path
+    .container
+      == breadcrumbs
+      div
+        = yield
