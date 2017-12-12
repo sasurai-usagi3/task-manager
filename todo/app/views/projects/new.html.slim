@@ -1,2 +1,2 @@
-- breadcrumb :new_project_path
-= render 'form', project: @project
+- breadcrumb :new_group_project_path, @group
+= render 'form', model: [@group, @project]

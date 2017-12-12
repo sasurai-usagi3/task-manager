@@ -1,25 +1,35 @@
 crumb :root do
-  link 'トップ', projects_path
+  link 'トップ', '/'
 end
 
-crumb :projects_path do
-  link 'プロジェクト一覧', projects_path
+crumb :new_group_path do |group|
+  link 'グループ作成一覧', [:new, :group]
   parent :root
 end
 
-crumb :new_project_path do
-  link'プロジェクト新規作成', new_project_path
-  parent :projects_path
+crumb :edit_group_path do |group|
+  link "グループ「#{group.name}」編集", [:edit, group]
+  parent :root
+end
+
+crumb :group_projects_path do |group|
+  link "グループ「#{group.name}」プロジェクト一覧", [group, :projects]
+  parent :root
+end
+
+crumb :new_group_project_path do |group|
+  link "グループ「#{group.name}」プロジェクト新規作成", [:new, group, :project]
+  parent :group_projects_path, group
 end
 
 crumb :edit_project_path do |project|
-  link'プロジェクト編集', [:edit, project]
-  parent :projects_path
+  link 'プロジェクト編集', [:edit, project]
+  parent :group_projects_path, project.group
 end
 
 crumb :project_tasks_path do |project|
   link "プロジェクト「#{project.name}」タスク一覧", [project, :tasks]
-  parent :projects_path
+  parent :group_projects_path, project.group
 end
 
 crumb :task_path do |task|
