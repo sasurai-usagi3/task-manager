@@ -9,3 +9,5 @@
 /todo/yarn-error.log
 
 /todo/.byebug_history
+id_rsa
+id_rsa.pub
