@@ -11,6 +11,7 @@ RUN echo 'export RBENV_ROOT=/usr/local/.rbenv\nexport PATH="/usr/local/.rbenv/bi
 RUN mkdir /var/www/html/$APP_NAME && useradd -b /bin/false $APP_NAME
 COPY ./$MODE/rails-default.conf /etc/apache2/sites-available/
 COPY ./my.cnf /etc/mysql
-RUN a2ensite rails-default && a2dissite 000-default
+RUN a2ensite rails-default && a2dissite 000-default && a2enmod mod_ssl mod_http2
+RUN if [ $MODE = 'production' ]; then cd ~ && git clone https://github.com/letsencrypt/letsencrypt.git && cd letsencrypt && ./letsencrypt-auto --help && ./letsencrypt-auto certonly --webroot --webroot-path /var/www/html/todo -d scrum-log.com;fi
 WORKDIR /var/www/html/$APP_NAME
 CMD service apache2 start && service mysql start && tail -f /dev/null
