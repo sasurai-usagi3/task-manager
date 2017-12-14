@@ -15,7 +15,13 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
+gem 'slim-rails'
+
 gem 'devise'
+gem 'kaminari'
+gem 'pundit'
+gem 'ransack'
+gem 'gretel'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -24,6 +30,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
+  gem 'pry-rails'
 end
 
 group :development do

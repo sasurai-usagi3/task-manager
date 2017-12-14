@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    title
+      | Scrum Log
+    meta name="viewport" content="width=device-width,initial-scale=1"
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    header
+      h2.page-title
+        | Scrum Log
+      nav
+        ul.nav-list
+          - if user_signed_in?
+            li.nav-list__item
+              = "#{current_user.nickname} としてログイン"
+            li.nav-list__item
+              = link_to '編集', edit_user_registration_path
+            li.nav-list__item
+              = link_to 'サインアウト', destroy_user_session_path, method: :delete
+          - else
+            li.nav-list__item
+              = link_to 'サインイン', new_user_session_path
+            li.nav-list__item
+              = link_to 'サインアップ', new_user_registration_path
+    .container
+      == breadcrumbs
+      div
+        = yield

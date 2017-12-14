@@ -1,0 +1,30 @@
+h2
+  | Sign up
+
+= form_with model: resource, url: registration_path(resource_name) do |f|
+  = devise_error_messages!
+
+  dl.form-list
+    dt.form-list__label
+      = f.label :email
+    dd.form-list__input-wrapper
+      = f.email_field :email, required: true, class: 'oneline-input', placeholder: 'test@example.com'
+  dl.form-list
+    dt.form-list__label
+      = f.label :nickname
+    dd.form-list__input-wrapper
+      = f.text_field :nickname, required: true, class: 'oneline-input', placeholder: 'ニックネーム'
+  dl.form-list
+    dt.form-list__label
+      = f.label :password
+    dd.form-list__input-wrapper
+      = f.password_field :password, required: true, class: 'oneline-input', placeholder: 'パスワード'
+  dl.form-list
+    dt.form-list__label
+      = f.label :password_confirmation
+    dd.form-list__input-wrapper
+      = f.password_field :password_confirmation, required: true, minlength: 6, class: 'oneline-input', placeholder: 'パスワードの再入力'
+  div
+    button.submit-btn
+      | 登録
+= render 'users/shared/links'
