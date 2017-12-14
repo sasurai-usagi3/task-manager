@@ -8,6 +8,9 @@ services:
         - MODE=${MODE}
         - APP_NAME=todo
     ports:
-      - "${PORT}:80"
+      - "${PORT1}:${VPORT1}"
+      - "${PORT2}:${VPORT2}"
     volumes:
       - "${APP_PATH}:/var/www/html/todo"
+    env_file:
+      - .env
