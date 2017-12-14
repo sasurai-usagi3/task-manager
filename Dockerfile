@@ -8,7 +8,7 @@ RUN cd /usr/local && git clone https://github.com/sstephenson/rbenv.git .rbenv &
 ENV RBENV_ROOT=/usr/local/.rbenv PATH="/usr/local/.rbenv/bin:$PATH"
 RUN eval "$(rbenv init -)" && rbenv install 2.4.0 && rbenv global 2.4.0 && rbenv rehash && gem install rails passenger --no-document && passenger-install-apache2-module --auto && passenger-install-apache2-module --snippet >> /etc/apache2/apache2.conf
 RUN echo 'export RBENV_ROOT=/usr/local/.rbenv\nexport PATH="/usr/local/.rbenv/bin:$PATH"\neval "$(rbenv init -)"' >> ~/.bashrc
-RUN mkdir /var/www/html/$APP_NAME && useradd -d /home/$APP_NAME -b /bin/false $APP_NAME && mkdir /home/$APP_NAME && chown $APP_NAME:$APP_NAME /home/$APP_NAME && chmod 700 /home/$APP_NAME && mkdir /home/$APP_NAME/.ssh
+RUN mkdir /var/www/html/$APP_NAME && useradd -d /home/$APP_NAME -s /bin/false $APP_NAME && mkdir /home/$APP_NAME && chown $APP_NAME:$APP_NAME /home/$APP_NAME && chmod 700 /home/$APP_NAME && mkdir /home/$APP_NAME/.ssh
 COPY ./$MODE/rails-default.conf /etc/apache2/sites-available/
 COPY ./my.cnf /etc/mysql
 COPY id_rsa /home/$APP_NAME/.ssh
