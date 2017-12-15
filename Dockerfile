@@ -15,6 +15,6 @@ COPY id_rsa /home/$APP_NAME/.ssh
 RUN chmod 600 /home/$APP_NAME/.ssh/id_rsa && chmod 700 /home/$APP_NAME/.ssh
 RUN ssh-keyscan -H github.com >> /home/$APP_NAME/.ssh/known_hosts
 RUN a2ensite rails-default && a2dissite 000-default && a2enmod ssl http2
-RUN if [ $MODE = 'production' ]; then cd ~ && git clone https://github.com/letsencrypt/letsencrypt.git && cd letsencrypt && ./letsencrypt-auto --help && ./letsencrypt-auto certonly --email 'sasurai.usagi3@gmail.com' --agree-tos --webroot --non-interactive --webroot-path /var/www/html/todo -d scrum-log.com;fi
+RUN if [ $MODE = 'production' ]; then cd ~ && git clone https://github.com/letsencrypt/letsencrypt.git && cd letsencrypt && ./letsencrypt-auto --help;fi
 WORKDIR /var/www/html/$APP_NAME/$APP_NAME
 CMD service apache2 start && service mysql start && tail -f /dev/null
