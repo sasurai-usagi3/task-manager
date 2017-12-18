@@ -1,0 +1,6 @@
+CREATE USER todo_development;
+CREATE USER todo_test;
+CREATE USER todo IDENTIFIED BY 'EyRBiiKv9Z';
+GRANT ALL ON todo_development.* TO todo_development;
+GRANT ALL ON todo_test.* TO todo_test;
+GRANT ALL ON todo.* TO todo;
