@@ -1,5 +1,23 @@
 version: '2'
 services:
+  db:
+    build:
+      context: ./db
+    volumes:
+      - todo-mysql:/var/lib/mysql
+    env_file:
+      - .env
+  cert:
+    build:
+      context: ./cert
+      args:
+        - MODE=${MODE}
+    ports:
+      - "${PORT2}:${VPORT2}"
+    volumes:
+      - "${APP_PATH}/letsencrypt:/etc/letsencrypt/"
+    env_file:
+      - .env
   todo:
     container_name: todo
     build:
@@ -9,8 +27,17 @@ services:
         - APP_NAME=todo
     ports:
       - "${PORT1}:${VPORT1}"
-      - "${PORT2}:${VPORT2}"
     volumes:
       - "${APP_PATH}:/var/www/html/todo"
+      - "${APP_PATH}/letsencrypt:/etc/letsencrypt/"
+      - "${APP_PATH}/mysql:/var/lib/mysql"
+    external_links:
+      - db:database
+    depends_on:
+      - db
+      - cert
     env_file:
       - .env
+volumes:
+  todo-mysql:
+    driver: 'local'
