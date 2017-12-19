@@ -2,17 +2,18 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: database
+  username: root
+  password:
   socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
-  username: todo_development
+  host: database
   database: todo_development
 
 test:
   <<: *default
-  username: todo_test
+  host: <%= ENV['TODO_TEST_DATABASE_HOST'] || 'database' %>
   database: todo_test
 
 production:

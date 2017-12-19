@@ -1,0 +1,3 @@
+GRANT ALL ON todo_development.* TO root@'%' IDENTIFIED BY 'a';
+GRANT ALL ON todo_test.* TO root@'%' IDENTIFIED BY 'a';
+SET PASSWORD FOR root@'%' = '';
