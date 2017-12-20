@@ -1,0 +1,71 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.4-node
+        environment:
+          BUNDLE_PATH: vendor/bundle
+          RAILS_ENV: test
+          TODO_TEST_DATABASE_HOST: 127.0.0.1
+      - image: circleci/mysql:5.7.18
+        environment:
+          MYSQL_USER: todo_test
+          MYSQL_DATABASE: todo_test
+          MYSQL_HOST: 127.0.0.1
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - rails-demo-bundle-v2-{{ checksum "todo/Gemfile.lock" }}
+            - rails-demo-bundle-v2-
+      - run:
+          name: bundle
+          working_directory: todo
+          command: bundle
+      - save_cache:
+          key: rails-demo-bundle-v2-{{ checksum "todo/Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run:
+          name: Wait for DB
+          working_directory: todo
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+      - run:
+          name: Setup DB
+          working_directory: todo
+          command: rails db:schema:load --trace
+      - run:
+          name: test
+          working_directory: todo
+          command: bundle exec rspec spec
+  deploy:
+    docker:
+      - image: circleci/ruby:2.4-node
+        environment:
+          BUNDLE_PATH: vendor/bundle
+          RAILS_ENV: test
+          TODO_TEST_DATABASE_HOST: 127.0.0.1
+      - image: circleci/mysql:5.7.18
+        environment:
+          MYSQL_USER: todo_test
+          MYSQL_DATABASE: todo_test
+          MYSQL_HOST: 127.0.0.1
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "7c:70:53:9b:c3:be:e2:d5:fb:48:68:d6:75:49:26:fc"
+      - deploy:
+          name: deploy
+          command: ssh -t -o 'StrictHostKeyChecking=no' scrum-log@150.95.157.60 'sudo ./deploy.sh'
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
