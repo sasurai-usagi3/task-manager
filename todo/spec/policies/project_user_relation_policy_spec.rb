@@ -18,7 +18,7 @@ RSpec.describe ProjectUserRelationPolicy do
     project.group.group_user_relations.create!(user: insider, authority: 'general')
   end
 
-  permissions :new?, :create?, :edit?, :update? do
+  permissions :create?, :edit?, :update? do
     it { is_expected.to permit(administrator, project_user_relation_group_user) }
     it { is_expected.not_to permit(general_user, project_user_relation_group_user) }
     it { is_expected.not_to permit(other, project_user_relation_group_user) }
@@ -27,7 +27,7 @@ RSpec.describe ProjectUserRelationPolicy do
     it { is_expected.not_to permit(other, project_user_relation_other) }
   end
 
-  permissions :destroy? do
+  permissions :new?, :destroy? do
     it { is_expected.to permit(administrator, project_user_relation_group_user) }
     it { is_expected.not_to permit(general_user, project_user_relation_group_user) }
     it { is_expected.not_to permit(other, project_user_relation_group_user) }
