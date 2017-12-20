@@ -9,7 +9,7 @@ class ProjectUserRelationPolicy < ApplicationPolicy
   end
 
   def new?
-    project_administrator? && @group.group_user_relations.exists?(user_id: @project_user_relation.user_id)
+    project_administrator?
   end
 
   def create?
