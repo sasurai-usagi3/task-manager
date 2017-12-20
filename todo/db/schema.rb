@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171208082518) do
+ActiveRecord::Schema.define(version: 20171220151005) do
 
   create_table "group_user_relations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "group_id", null: false
@@ -76,6 +76,20 @@ ActiveRecord::Schema.define(version: 20171208082518) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "works", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "project_id", null: false
+    t.bigint "task_id", null: false
+    t.bigint "user_id", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.integer "amount", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_works_on_project_id"
+    t.index ["task_id"], name: "index_works_on_task_id"
+    t.index ["user_id"], name: "index_works_on_user_id"
+  end
+
   add_foreign_key "group_user_relations", "groups"
   add_foreign_key "group_user_relations", "users"
   add_foreign_key "groups", "users", column: "creator_id"
@@ -86,4 +100,7 @@ ActiveRecord::Schema.define(version: 20171208082518) do
   add_foreign_key "tasks", "groups"
   add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "users"
+  add_foreign_key "works", "projects"
+  add_foreign_key "works", "tasks"
+  add_foreign_key "works", "users"
 end
