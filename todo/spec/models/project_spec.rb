@@ -7,6 +7,7 @@ RSpec.describe Project, type: :model do
     it { should have_many(:tasks).dependent(:destroy) }
     it { should have_many(:users).through(:project_user_relations) }
     it { should have_many(:project_user_relations).dependent(:destroy) }
+    it { should have_many(:works).dependent(:destroy) }
   end
 
   describe 'Validation' do

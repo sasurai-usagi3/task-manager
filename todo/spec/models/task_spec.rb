@@ -5,6 +5,7 @@ RSpec.describe Task, type: :model do
     it { should belong_to(:group) }
     it { should belong_to(:project) }
     it { should belong_to(:user) }
+    it { should have_many(:works).dependent(:destroy) }
   end
 
   describe 'Enum' do

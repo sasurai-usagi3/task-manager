@@ -2,6 +2,7 @@ class Task < ApplicationRecord
   belongs_to :group
   belongs_to :project
   belongs_to :user
+  has_many :works, dependent: :destroy
 
   enum status: {not_start: 0, in_progress: 1, done: 2}
 
