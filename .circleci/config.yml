@@ -57,7 +57,7 @@ jobs:
             - "7c:70:53:9b:c3:be:e2:d5:fb:48:68:d6:75:49:26:fc"
       - deploy:
           name: deploy
-          command: ssh -t -o 'StrictHostKeyChecking=no' scrum-log@150.95.157.60 'sudo ./deploy.sh'
+          command: ssh -t -o 'StrictHostKeyChecking=no' scrum-log@150.95.157.60 './deploy.sh'
 workflows:
   version: 2
   build-deploy:
