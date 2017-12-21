@@ -5,7 +5,7 @@ class ProjectUserRelationsController < ApplicationController
   def index
     authorize @project, :show?
 
-    @project_user_relations = @project.project_user_relations.page(params[:page]).per(10)
+    @project_user_relations = @project.project_user_relations.includes(:user).page(params[:page]).per(10)
   end
 
   def new

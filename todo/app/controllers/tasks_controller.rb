@@ -6,7 +6,7 @@ class TasksController < ApplicationController
     authorize @project, :show?
 
     @q_tasks = @project.tasks.ransack(params[:q])
-    @tasks = @q_tasks.result(distinct: true).order(priority: :desc).page(params[:page]).per(10)
+    @tasks = @q_tasks.result(distinct: true).includes(:user).order(priority: :desc).page(params[:page]).per(10)
   end
 
   def show
