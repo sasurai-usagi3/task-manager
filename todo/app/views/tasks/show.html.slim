@@ -34,3 +34,11 @@ dl
                                      end
         = f.hidden_field :status, value: next_status
         = f.submit status_text
+
+dl
+  dt
+    | このタスクに行われた作業
+  dd
+    = render 'works/form', model: [@task, @task.works.new], is_ajax: true
+    #work-list
+      = render 'works/list', works: @works

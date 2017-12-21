@@ -1,0 +1,33 @@
+- breadcrumb :project_user_works_path, @project, @user
+h2
+  | #{@user.nickname}の作業一覧
+table
+  thead
+    tr
+      th
+        | 作業者
+      th
+        | 作業日
+      th
+        | タイトル
+      th
+        | 詳細
+      th
+        | タスク量
+      th
+        | タスク
+  tbody
+    - @works.each do |work|
+      tr
+        td
+          = work.user.nickname
+        td
+          = l(work.created_at)
+        td
+          = work.title
+        td
+          = work.description
+        td
+          = work.amount
+        td
+          = link_to work.task.title, work.task

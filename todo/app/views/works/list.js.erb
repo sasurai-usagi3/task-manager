@@ -1,0 +1,2 @@
+document.getElementById('work-list').innerHTML = "<%= j render 'list', works: @works %>";
+document.querySelectorAll('[name^=work]').forEach(o => o.value = '');

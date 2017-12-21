@@ -11,6 +11,8 @@ class TasksController < ApplicationController
 
   def show
     authorize @task
+
+    @works = @task.works.order(created_at: :desc)
   end
 
   def new
