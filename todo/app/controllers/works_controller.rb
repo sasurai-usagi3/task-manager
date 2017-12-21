@@ -8,7 +8,7 @@ class WorksController < ApplicationController
 
     authorize @project, :show?
 
-    @works = @project.works.where(user: @user).order(created_at: :desc).page(params[:page]).per(10)
+    @works = @project.works.includes(:user).where(user: @user).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def create

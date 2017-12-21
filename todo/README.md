@@ -1,24 +1,41 @@
-# README
+# Smooth Work | タスク管理アプリ
+## セットアップ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+```bash:.env
+MODE=development
+PORT1=8080
+VPORT1=80
+PORT2=8081
+VPORT2=8081
+APP_PATH=<Document root>
+```
 
-Things you may want to cover:
+## 実装したもの
+- タスクには件名と状態がある
+  - 件名は必須
+  - 優先度もあり
+  - 状態は未着手・進行中・終了
+- タスクを一覧できる
+  - 状態・タイトルでの絞り込みが可能
+- タスクを作成、編集できる
+- タスクを削除できる
+- タスクの状態変更ができる
+- グループ(組織)の作成機能
+  - 権限もあります
+- プロジェクトの作成機能
+  - 権限もあります
+- タスクに対して行った作業を記録する機能
+- Dockerによって環境の持ち運びを容易にしました
+- CircleCIによって自動デプロイとテストが実行されます
+- テスト(Rspec)を追加しました
 
-* Ruby version
+## サイトのコンセプト
+- タスク管理サイトでは誰が何をしたか残りにくいので、それを記録したいと思いました。
+- またあとから見直すことで自分がどの程度のスピードでタスクをさばけるのかを見られるようにできたら便利だと思いました。
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## こだわり・アピールポイント
+- Rspecでテストを書くことによって、変更による予期せぬバグを見つけやすくしました。
+- Dockerを使うことで開発環境と本番環境が極力ずれないようにしました。
+- CircleCIを用いることでテストの実行忘れを防ぎ、またデプロイの自動化をすることで人が作業することによるミスが起らないようにしました。
+- タスクに対して行った作業の追加削除はAjaxが走っています。
+- https://smooth-work.comとして一般公開しました。
