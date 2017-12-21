@@ -1,0 +1,25 @@
+table
+  thead
+    tr
+      th
+        | 作業者
+      th
+        | タイトル
+      th
+        | 詳細
+      th
+        | 作業量
+      th
+  tbody
+    - works.each do |work|
+      tr
+        td
+          = work.user.nickname
+        td
+          = work.title
+        td
+          = simple_format work.description
+        td
+          = work.amount
+        td
+          = link_to '削除', work, method: :delete, remote: true

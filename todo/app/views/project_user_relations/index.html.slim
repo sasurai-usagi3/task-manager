@@ -15,12 +15,12 @@ table
       - user = project_user_relation.user
       tr
         td
-          - if policy(project_user_relation).edit?
-            = link_to user.nickname, [:edit, project_user_relation]
-          - else
-            = user.nickname
+          = link_to user.nickname, [@project, user, :works]
         td
           = project_user_relation.authority
+        td
+          - if policy(project_user_relation).edit?
+            = link_to '編集', [:edit, project_user_relation]
         td
           - if policy(project_user_relation).destroy?
             = link_to '削除', project_user_relation, method: :delete

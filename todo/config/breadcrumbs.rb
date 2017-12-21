@@ -64,6 +64,11 @@ crumb :edit_project_project_user_relation_path do |project_user_relation|
   parent :project_project_user_relations_path, project
 end
 
+crumb :project_user_works_path do |project, user|
+  link "「#{user.nickname}」作業一覧", [project, user, :works]
+  parent :project_project_user_relations_path, project
+end
+
 crumb :task_path do |task|
   link "タスク「#{task.title}」", task
   parent :project_tasks_path, task.project
