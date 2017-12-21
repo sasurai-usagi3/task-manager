@@ -5,7 +5,7 @@ class GroupUserRelationsController < ApplicationController
   def index
     authorize @group, :show?
 
-    @group_user_relations = @group.group_user_relations.page(params[:page]).per(10)
+    @group_user_relations = @group.group_user_relations.includes(:user).page(params[:page]).per(10)
   end
 
   def new

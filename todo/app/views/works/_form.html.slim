@@ -1,0 +1,10 @@
+- is_ajax ||= false
+= form_with model: model, remote: is_ajax do |f|
+  = f.text_field :title, placeholder: '行った作業', class: 'oneline-input'
+  br
+  = f.text_area :description, placeholder: '作業内容', class: 'multiline-input'
+  br
+  = f.label :amount, '作業量'
+  = f.number_field :amount, class: 'oneline-input'
+  button.submit-btn
+    | 更新

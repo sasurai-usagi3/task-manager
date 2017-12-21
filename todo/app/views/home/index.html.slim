@@ -1,11 +1,17 @@
-h2
-  | 所属するグループ
 - if user_signed_in?
+  h2
+    | 所属するグループ
   ul.group-list
     - @groups.each do |group|
       li.group-list__item
         h3.group-list__title
           = link_to group.name, [group, :projects]
         = simple_format group.description
+  = link_to 'グループの追加', new_group_path
 - else
-  | ログインしない
+  h2
+    | What's Smooth Work?
+  p
+    | Smooth Workは、タスク管理サービスです。
+    br
+    | いつ誰が作業をしたかを明確にできます。
